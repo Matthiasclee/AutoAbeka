@@ -1,7 +1,5 @@
 # AutoAbeka
 
-## It takes the "work" out of work
-
 AutoAbeka is a script that can automatically watch Abeka Homeschool videos on mute in the background.
 
 ## Requirements
