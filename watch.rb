@@ -57,13 +57,13 @@ for v in (START_LESSON..END_LESSON).to_a do
     videos[v].click
     sleep(10)
     begin
-      driver.find_element(id: "resumeVideo").click
+      driver.find_element(id: "restartVideo").click
     rescue
     end
     sleep(10)
   end
-  run "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-remaining")[0].innerHTML')})" do
-    time_remaining = driver.execute_script('return document.getElementsByClassName("fp-remaining")[0].innerHTML')
+  run "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})" do
+    time_remaining = driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')
     time_secs = (time_remaining.split(":")[0].to_i * 60) + (time_remaining.split(":")[1].to_i)
     sleep(5)
     driver.execute_script('document.getElementsByTagName("video")[0].play()')
