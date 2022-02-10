@@ -37,5 +37,5 @@ Run the following command: `ruby watch.rb <course> <start_video> <end_video> <op
 
 * \<course\> is the course you want to watch videos for
 * \<start\_video\> is the video to start watching with 0 being the first video in the list
-* \<end\_video\> is the video to stop watching on, starting at 0 (optional)
+* \<end\_video\> is the video to stop watching on, starting at 0
 * \<options\> can be `--browser` to show the browser and `--audio` to play the audio

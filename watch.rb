@@ -1,18 +1,14 @@
 require "selenium-webdriver"
 require "./.courses.rb"
 
-exit if !(ARGV[0] && ARGV[1])
+exit if !(ARGV[0] && ARGV[1] && ARGV[2])
 
 #Define settings
 USERNAME = File.read(".usr").chomp
 PASSWORD = File.read(".pass").chomp
 SUBJECT = ARGV[0]
 START_LESSON = ARGV[1].to_i
-if ARGV[2]
-  END_LESSON = ARGV[2].to_i
-else
-  END_LESSON = START_LESSON
-end
+END_LESSON = ARGV[2].to_i
 opts = Selenium::WebDriver::Chrome::Options.new
 opts.add_argument("--headless") if !ARGV.include?("--browser")
 opts.add_argument("--mute-audio") if !ARGV.include?("--audio")
