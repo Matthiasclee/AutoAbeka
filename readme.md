@@ -37,3 +37,5 @@ Run the following command: `ruby watch.rb <course> <start_video> <end_video> <op
 * \<start\_video\> is the video to start watching with 0 being the first video in the list
 * \<end\_video\> is the video to stop watching on, starting at 0
 * \<options\> can be `--browser` to show the browser and `--audio` to play the audio
+
+* NOTE: If you get an `elementnotinteractable` error, `javascripterror` error, or anything like that, most likely, the page has not fully loaded. Try using the `--browser` flag or using a different internet connection
