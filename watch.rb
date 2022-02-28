@@ -13,6 +13,7 @@ opts = Selenium::WebDriver::Chrome::Options.new
 opts.add_argument("--headless") if !ARGV.include?("--browser")
 opts.add_argument("--mute-audio") if !ARGV.include?("--audio")
 driver = Selenium::WebDriver.for :chrome, options: opts
+driver.manage.window.resize_to(2000, 1000)
 
 def run(description = "Unnamed action")
   print "#{description}: "
