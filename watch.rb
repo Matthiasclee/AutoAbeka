@@ -63,7 +63,14 @@ for v in (START_LESSON..END_LESSON).to_a do
     end
     sleep(10)
   end
-  play_video_title = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})"
+  loop do
+    begin
+      play_video_title = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})"
+      break
+    rescue
+      puts "Unable to read video time - trying again. Press CTRL+C to cancel"
+    end
+  end
   run play_video_title do
     time_remaining = driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')
     time_secs = (time_remaining.split(":")[0].to_i * 60) + (time_remaining.split(":")[1].to_i) + 45
