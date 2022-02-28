@@ -70,6 +70,7 @@ for v in (START_LESSON..END_LESSON).to_a do
       break
     rescue
       puts "Unable to read video time - trying again. Press CTRL+C to cancel"
+      driver.execute_script("location.reload()")
       sleep(5)
     end
   end
