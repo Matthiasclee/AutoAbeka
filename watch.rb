@@ -63,6 +63,7 @@ for v in (START_LESSON..END_LESSON).to_a do
     end
     sleep(10)
   end
+  play_video_title = "NO_TITLE"
   loop do
     begin
       play_video_title = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})"
