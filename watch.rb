@@ -56,14 +56,15 @@ for v in (START_LESSON..END_LESSON).to_a do
     sleep(3)
     videos = driver.find_element(id: "vlistNOTVOD").find_element(tag_name: "ul").find_elements(tag_name: "li")
     driver.execute_script("arguments[0].style.border='2px solid red'", videos[v])
+    sleep(30)
     $stdin.gets if ARGV.include?("--confirmvideo")
     videos[v].click
     sleep(10)
     begin
       driver.find_element(id: "restartVideo").click
+      sleep(10)
     rescue
     end
-    sleep(10)
   end
   play_video_title = "NO_TITLE"
   redo_i = false
