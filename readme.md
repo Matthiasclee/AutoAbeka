@@ -4,12 +4,24 @@ AutoAbeka is a script that can automatically watch Abeka Homeschool videos on mu
 
 ## Requirements
 
-* Ruby 2.6.5
-* selenium-webdriver
+* Ruby 2.6.5+
+* (gem) selenium-webdriver
 * chromedriver
 * Decent internet access
 
 ## Setup
+
+### To install required software: 
+
+```
+# IF YOU DO NOT HAVE BREW:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+sudo gem install selenium-webdriver
+brew install chromedriver
+```
+
+### Other setup:
 
 * Make a file called `.usr` and put your Abeka username in it
 * Make a file called `.pass` and put your Abeka password in it
