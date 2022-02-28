@@ -64,16 +64,18 @@ for v in (START_LESSON..END_LESSON).to_a do
     sleep(10)
   end
   play_video_title = "NO_TITLE"
+  redo_i = false
   loop do
     begin
       play_video_title = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})"
       break
     rescue
       puts "Unable to read video time - trying again. Press CTRL+C to cancel"
-      driver.execute_script("location.reload()")
-      sleep(5)
+      redo_i = true
+      break
     end
   end
+  redo if redo_i
   run play_video_title do
     time_remaining = driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')
     time_secs = (time_remaining.split(":")[0].to_i * 60) + (time_remaining.split(":")[1].to_i) + 45
