@@ -63,12 +63,18 @@ for v in (START_LESSON..END_LESSON).to_a do
     end
     sleep(10)
   end
-  run "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})" do
+  play_video_title = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})"
+  run play_video_title do
+    play_video_title = play_video_title + ": "
     time_remaining = driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')
-    time_secs = (time_remaining.split(":")[0].to_i * 60) + (time_remaining.split(":")[1].to_i)
+    time_secs = (time_remaining.split(":")[0].to_i * 60) + (time_remaining.split(":")[1].to_i) + 45
     sleep(5)
+    print "▒" * (time_secs / 30)
     driver.execute_script('document.getElementsByTagName("video")[0].play()')
-    sleep(time_secs + 45)
+    for x in (0..(time_secs / 30)).to_a do
+      print ("\r" + play_video_title + "▓" * x)
+      sleep(30)
+    end
   end
 end
 
