@@ -55,9 +55,11 @@ for v in (START_LESSON..END_LESSON).to_a do
   run "Select video" do
     sleep(3)
     videos = driver.find_element(id: "vlistNOTVOD").find_element(tag_name: "ul").find_elements(tag_name: "li")
+    sleep(3)
     driver.execute_script("arguments[0].style.border='2px solid red'", videos[v])
+    sleep(3)
     $stdin.gets if ARGV.include?("--confirmvideo")
-    videos[v].click
+    driver.execute_script("arguments[0].click()", videos[v])
     sleep(10)
     begin
       driver.find_element(id: "restartVideo").click
