@@ -50,4 +50,6 @@ Run the following command: `ruby watch.rb <course> <start_video> <end_video> <op
 * \<end\_video\> is the video to stop watching on, starting at 0
 * \<options\> can be `--confirmvideo` to wait for confirmation to play a video, `--browser` to show the browser and `--audio` to play the audio
 
-* NOTE: If you get an `elementnotinteractable` error, `javascripterror` error, or anything like that, most likely, the page has not fully loaded. Try using the `--browser` flag or using a different internet connection
+## Errors
+
+If you see `Unable to read video time - trying again. Press CTRL+C to cancel`, most likely something did not load properly. Let it retry, but if the error persists, ensure that the target lesson is not locked, or use `--browser` to make sure the page is loading properly.
