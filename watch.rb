@@ -85,8 +85,9 @@ for v in (START_LESSON..END_LESSON).to_a do
     driver.execute_script('document.getElementsByTagName("video")[0].play()')
 
     for x in (0..time_secs).to_a do
-      print "\r" + ("▒" * (time_secs / 30))
       play_video_task_name = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-remaining")[0].innerHTML')})" + ": "
+
+      print ("\r" + play_video_task_name + ("▒" * (time_secs / 30)))
       print ("\r" + play_video_task_name + "▓" * (x/30))
       sleep(1)
     end
