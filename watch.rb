@@ -53,43 +53,41 @@ for v in (START_LESSON..END_LESSON).to_a do
   end
 
   run "Select video" do
-    sleep(3)
+    sleep(0.5)
     videos = driver.find_element(id: "vlistNOTVOD").find_element(tag_name: "ul").find_elements(tag_name: "li")
-    sleep(3)
     driver.execute_script("arguments[0].style.border='2px solid red'", videos[v])
-    sleep(3)
+
     $stdin.gets if ARGV.include?("--confirmvideo")
+
     driver.execute_script("arguments[0].click()", videos[v])
-    sleep(10)
     begin
+      sleep(1)
       driver.find_element(id: "restartVideo").click
       sleep(10)
     rescue
+      sleep(10)
     end
   end
-  play_video_title = "NO_TITLE"
-  redo_i = false
-  loop do
-    begin
-      play_video_title = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})"
-      break
-    rescue
-      puts "Unable to read video time - trying again. Press CTRL+C to cancel"
-      redo_i = true
-      break
-    end
+
+  begin
+    play_video_task_name = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')})"
+    redo_i = false
+  rescue
+    puts "Unable to read video time - trying again. Press CTRL+C to cancel"
+    redo_i = true
   end
   redo if redo_i
-  run play_video_title do
-    time_remaining = driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')
-    time_secs = (time_remaining.split(":")[0].to_i * 60) + (time_remaining.split(":")[1].to_i)
-    sleep(5)
-    print "▒" * (time_secs / 30)
+
+  run play_video_task_name do
+    video_length = driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')
+    time_secs = (video_length.split(":")[0].to_i * 60) + (video_length.split(":")[1].to_i)
+
     driver.execute_script('document.getElementsByTagName("video")[0].play()')
+
     for x in (0..time_secs).to_a do
-      play_video_title = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-remaining")[0].innerHTML')})" + ": "
-      print ("\r" + play_video_title) 
-      print ("\r" + play_video_title + "▓" * (x/30)) if (x % 30) == 0
+      print "\r" + ("▒" * (time_secs / 30))
+      play_video_task_name = "Play video #{(v - START_LESSON) + 1}/#{(END_LESSON - START_LESSON) + 1} (#{driver.execute_script('return document.getElementsByClassName("fp-remaining")[0].innerHTML')})" + ": "
+      print ("\r" + play_video_task_name + "▓" * (x/30))
       sleep(1)
     end
     while (driver.execute_script('return document.getElementsByClassName("fp-remaining")[0].innerHTML') != "00:00") do
