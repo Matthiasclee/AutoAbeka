@@ -82,7 +82,7 @@ for v in (START_LESSON..END_LESSON).to_a do
   redo if redo_i
   run play_video_title do
     time_remaining = driver.execute_script('return document.getElementsByClassName("fp-duration")[0].innerHTML')
-    time_secs = (time_remaining.split(":")[0].to_i * 60) + (time_remaining.split(":")[1].to_i) + 45
+    time_secs = (time_remaining.split(":")[0].to_i * 60) + (time_remaining.split(":")[1].to_i)
     sleep(5)
     print "▒" * (time_secs / 30)
     driver.execute_script('document.getElementsByTagName("video")[0].play()')
@@ -92,6 +92,10 @@ for v in (START_LESSON..END_LESSON).to_a do
       print ("\r" + play_video_title + "▓" * (x/30)) if (x % 30) == 0
       sleep(1)
     end
+    while (driver.execute_script('return document.getElementsByClassName("fp-remaining")[0].innerHTML') != "00:00") do
+      sleep(1)
+    end
+    sleep(10)
   end
 end
 
